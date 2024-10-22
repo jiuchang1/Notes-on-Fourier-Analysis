@@ -1,0 +1,866 @@
+\section{恒等逼近}
+$\phi\in L^1(\mathbb{R}^n)$，$\int_{\mathbb{R}^n} \phi(x) dx = 1$，$\forall t > 0$，定义：
+\begin{align*}
+    \phi_t(x) \triangleq \frac{1}{t^n} \phi\left(\frac{x}{t}\right)
+\end{align*}
+
+\begin{Corollary}
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item 
+        \begin{align*}
+            \|f * F_{\frac{1}{R}} - f\|_p \to 0
+        \end{align*}
+        其中$F$为Fejer Kernel
+        \begin{align*}
+            F_{\frac{1}{R}} \triangleq \frac{\sin^2(\pi R x)}{(\pi x)^2 R} = \left(\frac{\sin^2(\pi u)}{(\pi u)^2}\right)_{\frac{1}{R}}
+        \end{align*}
+
+        \item 
+        \begin{align*}
+            \|f * P_t - f\|_p \to 0
+        \end{align*}
+        其中$P$为Poisson Kernel
+        \begin{align*}
+            P_t = \left( c_n \frac{1}{(1 + |x|^2)^{\frac{n+1}{2}}} \right)_t
+        \end{align*}
+
+        \item 
+        \begin{align*}
+            \|f*W_t - f\|_p \to 0
+        \end{align*}
+        其中$W$为Gauss Kernel
+        \begin{align*}
+            W_t = \left(e^{-\pi^2 |x|^2} \right)_t
+        \end{align*}
+    \end{enumerate}
+\end{Corollary}
+
+\begin{Corollary}
+    \begin{align*}
+        \phi_t \xrightarrow{\mathcal{S}^{\prime}}\ \delta,\quad \text{when}\ t\to 0
+    \end{align*}
+    即$\forall \phi\in \mathcal{S}(\mathbb{R}^n)$，$\int \phi_t(x) \psi(x) dx \to \psi(0)$，当$t\to 0$。
+\end{Corollary}
+    
+\paragraph{Question} 当$f\in L^p(\mathbb{R}^n)$，$1\leqslant p< \infty$，
+\begin{align*}
+    \left.\begin{array}{c}
+        f*F_{\frac{1}{R}} \\
+        f*W_t \\
+        f*P_t
+    \end{array} \right\rbrace \xrightarrow[?]{a.e.} \ f(x)
+\end{align*}
+
+上述问题等价于$\lim\limits_{R\to\infty} f*F_{\frac{1}{R}}$存在a.e.
+
+\section{点态收敛与极大算子的有界性}
+\begin{definition}[次线性算子]
+    若$T$为次线性算子，当且仅当：
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $|T(f+g)(x)| \leqslant |Tf(x)| + |Tg(x)|$;
+        \item $|T(cf)(x)| = |c|\cdot |Tf(x)|$，$\forall c\in \mathbb{C}$。
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[强$p,q$型]
+    $T$称为强$p,q$型算子，当且仅当$\|Tf\|_q \leqslant C_{p,q} \|f\|_p$，$\forall f\in L^p$，$0<p,q<\infty$。
+\end{definition}
+
+\begin{definition}[弱$p,q$型]
+    $T$称为弱$p,q$型算子，当且仅当$|\{x: |Tf(x)| > \lambda\}| \leqslant \left( \frac{c\|f\|_p}{\lambda}\right)^q$，$\forall f\in L^p$，$0<p,q<\infty$。
+\end{definition}
+
+\begin{Corollary}
+    强$p,q$显然可以推出弱$p,q$型：
+    \begin{align*}
+        \left(\int_{\mathbb{R}^n} |Tf(x)|^q dx \right)^{\frac{1}{q}} \leqslant C_{p,q} \|f\|_p
+    \end{align*}
+\end{Corollary}
+\begin{proof}
+    考虑左侧放缩
+    \begin{align*}
+        \operatorname{LHS} \geqslant \left(\int_{\{x: |Tf(x)| > \lambda\}}  |Tf(x)|^q dx \right)^{\frac{1}{q}} \geqslant \left(\int_{\{x: |Tf(x)| > \lambda\}}  \lambda^q dx \right)^{\frac{1}{q}}  \geqslant \lambda \cdot \left|\{x: |Tf(x)| > \lambda \}\right|^{\frac{1}{q}}
+    \end{align*}
+
+    因此有
+    \begin{align*}
+        \left|\{x: |Tf(x)| > \lambda \}\right|^{\frac{1}{q}} \leqslant \frac{C_{p,q}\|f\|_p}{\lambda}
+    \end{align*}
+    即得
+\end{proof}
+    
+\begin{Corollary}
+    将空间改为测度空间依然满足，即$(\mathscr{X},\mu)$，其中$\mu$为测度，满足
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $\mu(\varnothing) = 0$;
+        \item $0\leqslant \mu(E) \leqslant +\infty$;
+        \item $\mu(\bigcup\limits_{i=1}^{\infty} E_i) = \sum\limits_{i=1}^{\infty} \mu(E_i)$
+    \end{enumerate}
+\end{Corollary}
+
+\begin{theorem}
+    $\forall t\in I$，$T_t$为$L^p(\mathscr{X},\mu)\to L^q(\mathscr{Y},\nu)$的一个可测函数空间，$T_t$为线性算子，定义极大算子
+    \begin{align*}
+        T^* (f)(x) \triangleq \sup\limits_{t\in I} |T_t(f)(x)|
+    \end{align*}
+    若$T^*$为弱$p,q$型，设$t_0\in \overline{I}$，则
+    \begin{align*}
+        \mathcal{F} \triangleq \{f\in L^p(\mathscr{X},\mu): \lim\limits_{t\to t_0} T_t f(x) = f(x),\ a.e.\ x\in\mathscr{X} \}
+    \end{align*}
+    为$L^p(\mathscr{X},\mu)$的闭集。
+\end{theorem}
+\begin{proof}
+    设$f_n\in\mathcal{F}$，且$f_n\xrightarrow{L^p}\ f$，往证$f\in\mathcal{F}$\footnote{为了证明$\forall f\in L^p$，
+    \begin{align*}
+        \lim\limits_{t\to t_0} T_t f(x) = f(x)\ a.e.
+    \end{align*}
+    只需
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $\forall f\in C_0^{\infty}$;
+        \item $\sup\limits_{t>0} |T_t f(x)|$为弱$p,q$型。
+    \end{enumerate}}，即意味着该集合的聚点都在集合内，即为闭集。
+
+    而$f\in L^p$，显然。因此我们往证
+    \begin{align*}
+        \lim\limits_{t\to t_0} |T_t f(x) - f(x)| = 0 \quad a.e.
+    \end{align*}
+    即
+    \begin{align*}
+        \mu\left\lbrace\overline{\lim\limits_{t\to t_0}} |T_t f(x) - f(x)| > 0 \right\rbrace = 0 
+    \end{align*}
+    即$\forall \lambda>0$，
+    \begin{align*}
+        \mu\left\lbrace x\in\mathscr{X}:\  \overline{\lim\limits_{t\to t_0}} |T_t f(x) - f(x)| >  \lambda \right\rbrace = 0 
+    \end{align*}
+
+    而
+    \begin{align*}
+        \overline{\lim\limits_{t\to t_0}} |T_t f(x) - f(x)| &= \overline{\lim\limits_{t\to t_0}} |T_t f(x) - T_t f_n(x) + T_t f_n(x) - f_n(x) + f_n(x) - f(x) | \\
+        & \leqslant \overline{\lim\limits_{t\to t_0}} |T_t(f-f_n)(x)| + \overline{\lim\limits_{t\to t_0}} |T_tf_n(x) - f_n(x)| + |f_n(x) - f(x)| 
+    \end{align*}
+
+    故而
+    \begin{align*}
+        \left\lbrace x\in\mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} |T_tf(x) - f(x)| > \lambda\right\rbrace \subseteq \left\lbrace x\in\mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} |T_t(f- f_n)| + \overline{\lim\limits_{t\to t_0}} |T_tf_n -f_n| + |f_n - f| > \lambda \right\rbrace
+    \end{align*}
+    即
+    \begin{align*}
+        \operatorname{LHS} = \mu\left\lbrace x\in\mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} |T_tf(x) - f(x)| > \lambda\right\rbrace \leqslant  \mu \left\lbrace x\in\mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} |T_t(f- f_n)| + \overline{\lim\limits_{t\to t_0}} |T_tf_n -f_n| + |f_n - f| > \lambda \right\rbrace
+    \end{align*}
+
+    记$E_n = \left\lbrace x\in \mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} T_t f_n(x) \neq f_n(x)\right\rbrace$，$E\triangleq\bigcup\limits_{n=1}^{\infty} E_n$，$\mu(E)=0$。
+
+    从而
+    \begin{align*}
+        \operatorname{LHS} &\leqslant \mu\left\lbrace x\in\mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} |T_tf(x) - T_tf_n(x)| > \frac{\lambda}{2} \right\rbrace + \mu\left\lbrace x\in\mathscr{X}:\ \overline{\lim\limits_{t\to t_0}} |f_n(x) - f(x)| > \frac{\lambda}{2} \right\rbrace \\
+        & \leqslant \left( \frac{c \|f-f_n\|_p}{\frac{\lambda}{2}}\right)^q + \left( \frac{c \|f-f_n\|_p}{\frac{\lambda}{2}}\right)^p \to 0
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    条件同theorem 2.2.1，则
+    \begin{align*}
+        \widetilde{\mathcal{F}} \triangleq \left\lbrace f\in L^p(\mathscr{X},\mu)\  \lim\limits_{t\to 0} T_t f(x)\ a.e.\ \text{存在}\right\rbrace
+    \end{align*}
+    $\widetilde{\mathcal{F}}$在$L^p(\mathscr{X},\mu)$中为闭集。
+\end{theorem}
+\begin{proof}
+    设$f_n\in\widetilde{\mathcal{F}}$，$f_n\to f$，往证$f\in\widetilde{\mathcal{F}}$。只需证明$\forall \lambda>0$，
+    \begin{align*}
+        \mu\left\lbrace x\in\mathscr{X}: \ \overline{\lim\limits_{t\to t_0}} T_tf(x) - \varliminf\limits_{t\to t_0} T_t f(x) > \lambda\right\rbrace = 0
+    \end{align*}
+    \textcolor{red}{即上下极限之差几乎处处为$0$，当然这里不需要加绝对值，则充要条件即为$\lim\limits_{t\to t_0} T_t f(x)$几乎处处存在。由于其为线性算子，则这个条件就等价于在$0$处极限几乎处处存在，这个充要性是在泛函分析中提及的。}记$\Omega(f)(x)\triangleq \varlimsup\limits_{t\to t_0}T_tf(x) - \varliminf\limits_{t\to t_0} T_t f(x)$，则显而易见的有
+    \begin{align*}
+        \color{red} \Omega(f)(x) \leqslant 2T^*(f)(x)
+    \end{align*}
+    并且有
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $\Omega(f) \geqslant 0$;
+        \item $\Omega(f+g) \leqslant \Omega(f) + \Omega(g)$\footnote{\begin{align*}
+            \varlimsup\limits_{t\to t_0}T_t(f+g)(x) - \varliminf\limits_{t\to t_0} T_t (f+g)(x) &= \varlimsup\limits_{t\to t_0} (T_t f + T_t g) - \varliminf\limits_{t\to t_0} (T_t f + T_t g) \\
+            & \left[\leqslant \varlimsup\limits_{t\to t_0}  T_t f + \varlimsup\limits_{t\to t_0} T_t g \right]- \left[\varliminf\limits_{t\to t_0} T_t f + \varliminf\limits_{t\to t_0} T_t g\right] \\
+            & = \Omega(f) + \Omega(g)
+        \end{align*}};
+    \end{enumerate}
+
+    \begin{align*}
+        \mu\{x\in\mathscr{X}:\ \Omega(f)(x) > \lambda\} &\leqslant \mu  \{ x\in\mathscr{X}:\ \Omega(f-f_n) + \Omega(f_n) > \lambda \} \\
+        & \leqslant \mu \{x\in\mathscr{X}:\ \Omega(f-f_n) > \frac{\lambda}{2} \} + \mu \{x\in\mathscr{X}:\ \Omega(f_n) > \frac{\lambda}{2} \} \\
+        & \leqslant \mu \{x\in\mathscr{X}:\ 2T^*(f-f_n)(x) > \frac{\lambda}{2} \} + (\to 0) \leqslant \left(\frac{c\|f-f_n\|_p}{\frac{\lambda}{4}}\right)^q + (\to 0) \to 0
+    \end{align*}
+\end{proof}
+
+% 15th Oct
+\newpage
+\section{Marcinkiewicz内插定理}
+\begin{lemma}
+    $\forall\ 0<p<\infty$，
+    \begin{align*}
+        \|f\|_{p}^p = \int_0^{\infty} p \lambda^{p-1} \bigg|\{x\in\mathbb{R}^n:\ |f(x)| > \lambda\}\bigg| d\lambda
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \operatorname{RHS} &= \int_0^{\infty} p \lambda^{p-1} \int_{\mathbb{R}^n} \chi_{x: |f(x)|>\lambda}(x) dx d\lambda \\
+        & \overset{\texttt{Tonelli}}{=} \int_{\mathbb{R}^n} \int_0^{|f(x)|} p\lambda^{p-1}  d\lambda dx \\
+        & = \int_{\mathbb{R}^n} \lambda^p\bigg|_{0}^{|f(x)|} dx \\
+        & = \int_{\mathbb{R}^n} |f(x)|^p dx = \|f\|_p^p
+    \end{align*}
+\end{proof}
+
+\begin{lemma}
+    若$f\in L^p(\mathbb{R}^n)$，$0<p_0<p<p_1\leqslant\infty$，则
+    \begin{align*}
+        f = f_0 + f_1 \quad f_0\in L^{p_0}, \quad f_1\in L^{p_1}
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    令
+    \begin{align*}
+        f_0(x) &= f(x) \chi_{\{|f(x)| > 1\}} (x) \\
+        f_1(x) &= f(x) \chi_{\{|f(x)| \leqslant 1\}} (x)
+    \end{align*}
+    而后交换次序即可得到$f_i\in L^{p_i}$，$i=0,1$。
+\end{proof}
+
+\begin{theorem}[Marcinkiewicz interpolation]
+    $\forall 1\leqslant p_0 < p_1 \leqslant \infty$，$T$为$L^{p_0} + L^{p_1} \to L^{p_0} + L^{p_1}$为次线性算子，
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $T$是弱$(p_0,p_0)$型：
+        \begin{align*}
+        \left| \{ x\in\mathbb{R}^n :\ |Tf(x)| > \lambda\} \right| \leqslant \left(\frac{c_0 \|f\|_{p_0}}{\lambda}\right)^{p_0}
+        \end{align*}
+        \item $T$是弱$(p_1, p_1)$型：
+        \begin{align*}
+            \left| \{ x\in\mathbb{R}^n :\ |Tf(x)| > \lambda\} \right| \leqslant \left(\frac{c_1 \|f\|_{p_1}}{\lambda}\right)^{p_1}
+        \end{align*}
+    \end{enumerate}
+    则$\forall p_0 < p < p_1$，有$T$是强$(p,p)$型，即
+    \begin{align*}
+        \|Tf\|_{p} \leqslant 2 p^{\frac{1}{p}} c_0^{1-\theta} c_1^{\theta} \left( \frac{1}{p-p_0} + \frac{1}{p_1 - p} \right)^{\frac{1}{p}} \|f\|, \quad \frac{1}{p} = \frac{1-\theta}{p_0} + \frac{\theta}{p_1},\quad \text{where}\ 0<\theta<1
+    \end{align*}
+    
+    可推广至下三角。
+\end{theorem}
+\begin{proof}
+    先证明$p_1<\infty$的情形，$f\in L^p$
+    \begin{align*}
+        \|Tf\|_p^p &= p\int_0^{\infty} \lambda^{p-1} |\{x:\ |Tf(x)| > \lambda \}| d\lambda 
+    \end{align*}
+    令
+    \begin{align*}
+        f_0^{\lambda}(x) &= f(x) \chi_{\{x: |f(x)| > \alpha\lambda \}} \\
+        f_1^{\lambda}(x) &= f(x) \chi_{\{x: |f(x)| \leqslant \alpha\lambda \}}
+    \end{align*}
+    其中$\alpha>0$待定，则
+    \begin{align*}
+        \mu|\underbrace{\{x:\ |Tf(x)| > \lambda \}}\limits_{E}| &\overset{\textit{次线性}}{\leqslant} \mu\{x: |Tf_0^{\lambda}| + |Tf_1^{\lambda}| > \lambda \} \\
+        & \mu|\underbrace{\left\lbrace x: |Tf_0^{\lambda}| > \frac{\lambda}{2}\right\rbrace }\limits_{E_1}| + \mu|\underbrace{\left\lbrace x: |Tf_1^{\lambda}| > \frac{\lambda}{2}\right\rbrace }\limits_{E_2}|
+    \end{align*}
+    这是由于$E\subseteq E_1\cup E_2$。故而
+    \begin{align*}
+        \|Tf\|_p^p &\leqslant \underbrace{p \int_0^{\infty} \lambda^{p-1} \left(  \frac{c_0 \|f\|_{p_0}}{\frac{\lambda}{2}}\right)^{p_0} d\lambda}\limits_{I_0} + \underbrace{p \int_0^{\infty} \lambda^{p-1} \left(  \frac{c_1 \|f\|_{p_1}}{\frac{\lambda}{2}}\right)^{p_1} d\lambda}\limits_{I_1} 
+    \end{align*}
+    而
+    \begin{align*}
+        I_0 & = p c_0^{p_0} 2^{p_0} \int_0^{\infty} \lambda^{p-1-p_0} \int_{\mathbb{R}^n} |f_0^{\lambda}(x)|^{p_0} dx d\lambda \\
+        & = p (2c_0)^{p_0} \int_0^{\infty} \lambda^{p-1-p_0} \int_{\{|f(x)| > \alpha\lambda \}} |f(x)|^{p_0} dxd\lambda \\
+        & \overset{\texttt{Tonelli}}{=} p(2c_0)^{p_0} \int_{\mathbb{R}^n} \int_0^{\frac{|f(x)|}{\alpha}} \lambda^{p-1-p_0} |f(x)|^{p_0} d\lambda dx \\
+        & = p(2c_0)^{p_0} \int_{\mathbb{R}^n} \frac{\lambda^{p-p_0}}{p-p_0}\bigg|_{0}^{\frac{|f(x)|}{\alpha}} |f(x)|^{p_0} dx \\
+        & = \underbrace{p(2c_0)^{p_0} \frac{1}{p-p_0} \frac{1}{\alpha^{p-p_0}}}\limits_{C(p)} \int_{\mathbb{R}^n} |f(x)|^p dx
+    \end{align*}
+
+    第二部分
+    \begin{align*}
+        I_1 & = p (2c_1)^{p_1} \int_0^{\infty} \int_0^{\infty} \lambda^{p-1-p_1} \int_{\mathbb{R}^n} |f_1^{\lambda}(x)|^{p_1} dx d\lambda \\
+        & = p (2c_1)^{p_1} \int_0^{\infty} \lambda^{p-1-p_1} \int_{\{|f(x)| \leqslant \alpha\lambda \}} |f(x)|^{p_1} dxd\lambda \\
+        & \overset{\texttt{Tonelli}}{=} p(2c_0)^{p_0} \int_{\mathbb{R}^n} \int_{\frac{|f(x)|}{\alpha}}^{\infty} \lambda^{p-1-p_1} |f(x)|^{p_1} d\lambda dx \\
+        & = p(2c_1)^{p_1} \int_{\mathbb{R}^n} \frac{\lambda^{p-p_1}}{p-p_1}\bigg|_{\frac{|f(x)|}{\alpha}}^{\infty} |f(x)|^{p_1} dx \\
+        & = p(2c_1)^{p_1} \frac{1}{p_1 - p} \frac{1}{\alpha^{p-p_1}} \int_{\mathbb{R}^n} |f(x)|^p dx
+    \end{align*}
+
+    因此
+    \begin{align*}
+        \|Tf\|_p^p &\leqslant p (2c_0)^{p_0} \frac{1}{\alpha^{p-p_0}} \frac{1}{p-p_0} \|f\|_p + p(2c_1)^{p_1} \frac{1}{\alpha^{p-p_1}} \frac{1}{p_1-p} \|f\|_p^p \\
+        & = p \|f\|_p^p \left[\frac{(2c_0)^{p_0}}{\alpha^{p-p_0}} \frac{1}{p-p_0} + \frac{(2c_1)^{p_1}}{\alpha^{p-p_1}}\frac{1}{p_1-p} \right]
+    \end{align*}
+
+    我们要选择$\alpha$，使得
+    \begin{align*}
+        \frac{(2c_0)^{p_0}}{\alpha^{p-p_0}} = \frac{(2c_1)^{p_1}}{\alpha^{p-p_1}} \triangleq M
+    \end{align*}
+    即就是
+    \begin{align*}
+        \alpha \triangleq \left[ \frac{(2c_0)^{p_0}}{(2c_1)^{p_1}} \right]^{\frac{1}{p_1 - p_0}}
+    \end{align*}
+
+    因此
+    \begin{align*}
+        \frac{(2c_0)^{p_0}}{\alpha^{p-p_0}} &= (2c_0)^{p_0} \left[ \frac{(2c_1)^{p_1}}{(2c_0)^{p_0}} \right]^{\frac{p-p_0}{p_1 - p_0}} \\
+        & = (2c_0)^{p_0\left(1 - \frac{p - p_0}{p_1 - p_0}\right)} (2c_1)^{p_1 \frac{p - p_0}{p_1 - p_0}} 
+    \end{align*}
+
+    而
+    \begin{align*}
+        p_0 \frac{p_1 - p}{p_1 - p_0} &= p_0 \frac{1 - \frac{p}{p_1}}{1 -\frac{p_0}{p_1}} = \left[\frac{\frac{1}{p} - \frac{1}{p_1} }{\frac{1}{p_0} - \frac{1}{p_1}}\right] p
+    \end{align*}
+    而
+    \begin{align*}
+        \frac{1}{p} = \frac{1- \theta}{p_0} + \frac{\theta}{p_1}
+    \end{align*}
+    则上式
+    \begin{align*}
+        \frac{1}{p} &= \frac{1}{p_0} + \left(\frac{1}{p_1} - \frac{1}{p_0}\right)\theta \Rightarrow \\
+        \theta &= \frac{\frac{1}{p} - \frac{1}{p_0}}{\frac{1}{p_1} - \frac{1}{p_0}} \\
+        1 - \theta & = \frac{\frac{1}{p_1} - \frac{1}{p_0}}{\frac{1}{p_1} - \frac{1}{p_0}}
+    \end{align*}
+
+    因此得到
+    \begin{align*}
+        \|Tf\|_{p} &\leqslant p^{\frac{1}{p}} \|f\|_p \left[(2c_0)^{p\theta} (2c_1)^{p(1-\theta} \left(\frac{1}{p-p_0} + \frac{1}{p_1 - p} \right)\right]^{\frac{1}{p}} \\
+        & \leqslant 2 p^{\frac{1}{p}} c_0^{1-\theta} c_1^{\theta} \left( \frac{1}{p-p_0} + \frac{1}{p_1 - p} \right)^{\frac{1}{p}} \|f\|_p, \quad \frac{1}{p} = \frac{1-\theta}{p_0} + \frac{\theta}{p_1},\quad \text{where}\ 0<\theta<1
+    \end{align*}
+
+    而对于无穷时候的情况
+    \begin{align*}
+        \|Tf\|_{\infty} \leqslant c_1 \|f\|_{\infty}
+    \end{align*}
+    
+\end{proof}
+
+\begin{exercise}[Homework 15th Oct]
+    证明更一般的Marcinkiewicz内插定理：
+    \begin{theorem}[Normal Marcinkiewicz Interpolation]
+        若满足
+        \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $T$是弱$(p_0,q_0)$型，$q_0 \geqslant p_0$；
+        \item $T$是弱$(p_1, q_1)$型，$q_1\geqslant p_1$，且$q_0\neq q_1$；
+    \end{enumerate}
+    则$T$是强$(p,q)$型，$p_0<p<p_1$，$q_0<q<q_1$，且
+    \begin{align*}
+        \frac{1}{p} &= \frac{1-\theta}{p_0} + \frac{\theta}{p_1} \\
+        \frac{1}{q} &= \frac{1-\theta}{q_0} + \frac{\theta}{q_1} \\
+        \text{where}\ & 0<\theta < 1
+    \end{align*}
+    \end{theorem}
+\end{exercise}
+\begin{proof}
+    
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\paragraph{Question} 当$\varphi\in L^1(\mathbb{R})$，$\int_{\mathbb{R}^n} \varphi(x) dx = 1$，问：
+\begin{align*}
+    &f\in L^p ,\ 1\leqslant p<\infty \\
+    & \lim\limits_{t\to 0} \varphi_t * f(x) \overset{?}{=} f(x),\ a.e.
+\end{align*}
+
+归结于：
+\begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+    \item 当$f\in C_0^{\infty}$，已证明。
+    \item 
+    \begin{align*}
+        \sup\limits_{t>0} |\varphi_t * f(x)|
+    \end{align*}
+    是否为弱$(p,q)$型？
+\end{enumerate}
+
+
+
+
+
+
+\newpage
+\section{Hardy-Littlewood极大算子 $\mathcal{M}(f)$}
+\begin{definition}[Hardy-Littlewood极大算子]
+    $f\in L^1_{\texttt{Loc}} (\mathbb{R}^n)$，定义
+    \begin{align*}
+        \mathcal{M}f(x) \triangleq \sup\limits_{x\in B} \frac{1}{|B|} \int_{B} |f(y)| dy
+    \end{align*}
+    其中$B$为$\mathbb{R}^n$中的球。
+
+    也可以以方体定义：
+    \begin{align*}
+        \mathcal{M}^{\texttt{Cube}}f(x) \triangleq \sup\limits_{x\in Q} \frac{1}{|Q|} \int_{Q} |f(y)| dy
+    \end{align*}
+    其中$Q$为$\mathbb{R}^n$中平行于坐标面的方体。
+
+    同理，定义
+    \begin{align*}
+        \widetilde{\mathcal{M}}f(x) \triangleq \sup\limits_{r>0} \frac{1}{|B(x,r)|} \int_{B(x,r)} |f(y)| dy
+    \end{align*}
+    也可以定义
+    \begin{align*}
+        \widetilde{\mathcal{M}}^{\texttt{Cube}}f(x) \triangleq \sup\limits_{r>0} \frac{1}{|Q(x,r)|} \int_{Q(x,r)} |f(y)| dy
+    \end{align*}
+    其中$Q(x,r)$表示以$x$为心，$r$为边长的平行于坐标面的方体。
+\end{definition}
+\begin{remark}
+    自然的，我们可以发现，
+    \begin{align*}
+        C_2(n) \mathcal{M}^{\texttt{Cube}} f(x) \leqslant \mathcal{M}f(x) \leqslant C_1(n) \mathcal{M}^{\texttt{Cube}} f(x)
+    \end{align*}
+
+    这里局部$L^1$与$L^1$不同，例如
+    \begin{align*}
+        \frac{1}{\sqrt{x}} &\notin L^1(\mathbb{R}) \\
+        \frac{1}{\sqrt{x}} &\in L^1_{\texttt{Loc}}(\mathbb{R})
+    \end{align*}
+    而$x^3 + 5x^2 + 6$也同上有这样的情况。
+\end{remark}
+\begin{remark}
+    自然的我们也可以发现
+    \begin{align*}
+        \widetilde{\mathcal{M}}f(x) \leqslant \mathcal{M}f(x) \leqslant 2^n \widetilde{M}f(x)
+    \end{align*}
+\end{remark}
+\begin{proof}
+    $\forall x\in\mathbb{R}^n$，$\forall x\in B$，$r(B) = r$，则有
+    \begin{align*}
+        \frac{1}{|B|} \int_B |f(y)| dy \leqslant \frac{1}{|B|} \int_{B(x,2r)} |f(y)| dy = \frac{|B(x,2r)|}{|B|} \frac{1}{|B(x,2r)|} \int_{B(x,2r)} |f(y)| dy \leqslant 2^n \widetilde{\mathcal{M}} f(x)
+    \end{align*}
+\end{proof}
+
+\begin{proposition}[一个平凡的性质]
+    $\mathcal{M}$是强$(\infty,\infty)$型的，更精确地，
+    \begin{align*}
+        \|Mf\|_{\infty} \leqslant \|f\|_{\infty}
+    \end{align*}
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        \mathcal{M}f(x) \triangleq \sup\limits_{x\in B} \frac{1}{|B|} \int_{B} |f(y)| dy \leqslant  \sup\limits_{x\in B} \frac{1}{|B|} \int_{B} \|f\|_{\infty} dy = \|f\|_{\infty}
+    \end{align*}
+    \textcolor{red}{由于$\infty$-范数的定义为：设 $(\Omega, \mathscr{B}, \mu)$是一个测度空间, $\mu$对于 $\Omega$ 是 $\sigma$-有限的，$u(x)$是$\Omega$上的可测函数。如果$u(x)$与$\Omega$上的一个有界函数几乎处处相等，则称$u(x)$是$\Omega$ 上的一个本性有界可测函数。$\Omega$上的一切本性有界可测函数（把a.e.相等的两个函数视为同一个向量）的全体记作 $L^{\infty}(\Omega, \mu)$，在其上规定：}
+    \begin{align*}
+        \color{red} \|u\|=\inf _{\substack{\mu\left(E_0\right)=0 \\ E_0 \subset \Omega}}\left(\sup _{x \in \Omega \backslash E_0}|u(x)|\right)
+    \end{align*}
+    \textcolor{red}{此式右端有时也记作$\underset{x\in\Omega}{\operatorname{ess} \sup}|u(x)|$ 或 $\underset{x\in\Omega}{\operatorname{l.u.b}}|u(x)|$。}
+\end{proof}
+
+\begin{proposition}
+    $\mathcal{M}f$不是强$(1,1)$的。更确切地，若$f\in L^1$，且$f\neq 0$（不是几乎处处为0），则$\|\mathcal{M}f\|_1 = +\infty$。
+\end{proposition}
+\begin{proof}
+    $f\neq 0$，故而$\exists R>0$，$\exists \varepsilon_0>0$，s.t.
+    \begin{align*}
+        \int_{B(0,R)} |f(x)| dx \geqslant \varepsilon_0
+    \end{align*}
+
+    则$\forall x\in \mathbb{R}^n$，$|x|>R$，则$B(0,R)\subseteq B(x,2|x|)$。我们记
+    \begin{align*}
+        \bbint |f(y)| dy \triangleq \frac{1}{|B|} \int_B |f(y)| dy
+    \end{align*}
+
+    则
+    \textcolor{red}{\begin{align*} 
+        \mathcal{M}f(x) &\triangleq \sup\limits_{x\in B} \int_B |f(y)| dy \geqslant \frac{1}{|B(x,2|x|)|} \epsilon_0 \\
+        & = \frac{\varepsilon_0}{c_n(2|x|)^n} = c' \frac{1}{|x|^n}
+    \end{align*}}
+    因此当$x\to 0$时，$\mathcal{M}f$将会发散，即
+    \begin{align*}
+        \|\mathcal{M}f\|_{1} = +\infty
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    $\mathcal{M}f$是弱$(1,1)$的，即$\exists c>0$，$\forall \lambda>0$，有
+    \begin{align*}
+        \left|\underbrace{\left\lbrace x\in\mathbb{R}^n: \mathcal{M}f(x) > \lambda \right\rbrace}\limits_{E_{\lambda}}\right| \leqslant \frac{5^n}{\lambda} \|f\|_1
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    若我们先承认Vitali引理(\ref{Th:Vitali})，$\forall x\in E_{\lambda}$，则
+    \begin{align*}
+        \mathcal{M}f(x) > \lambda
+    \end{align*}
+    即
+    \begin{align*}
+        \sup\limits_{x\in B} \bbint_{B} |f(y)| dy > \lambda
+    \end{align*}
+    则$\exists B^x$，s.t. $x\in B^x$，且
+    \begin{align*}
+        \frac{1}{|B^x|}\int_{B^x} |f(y)| dy > \lambda
+    \end{align*}
+    即
+    \begin{align*}
+        |B^x| < \frac{1}{\lambda} \int_{B^x} |f(y)| dy
+    \end{align*}
+    从而
+    \begin{align*}
+        E_{\lambda} \subset \bigcup\limits_{x\in E_{\lambda}} B^x
+    \end{align*}
+    故而
+    \begin{align*}
+        |B^x| \leqslant \frac{1}{\lambda} \int_{\mathbb{R}^n} |f(y)| dy = \frac{\|f\|_1}{\lambda}
+    \end{align*}
+    故而$r(B^{\alpha}) \leqslant \left(\frac{\|f\|_1}{c_n \lambda}\right)^{1/n}$，$\forall x\in E_{\lambda}$，因此由Vitali引理，存在$\{x_j\}_{x_j\in E_{\lambda}}$，s.t.
+    \begin{align*}
+        B^{x_j} &\cap B^{x_{j'}} = \varnothing,\quad j\neq j' \\
+        |E_{\lambda}| &\leqslant 5^n \sum\limits_{j=1}^{\infty} |B^{x_j}| \leqslant 5^n \sum\limits_{j=1}^{\infty} \frac{1}{\lambda} \int_{B^{x_j}} |f(y)| dy \\
+        & = \frac{5^n}{\lambda} \sum_{j=1}^{\infty} \int_{B^{x_j}} |f(y)| dy = \frac{5^n}{\lambda} \int_{\bigcup\limits_{j=1}^{\infty} B^{x_j}} |f(y)| dy \\
+        & \leqslant \frac{5^n}{\lambda} {\int_{E_{\lambda}}} |f(y)| dy \leqslant \frac{5^n}{\lambda} \int_{\mathbb{R}^n} |f(y)| dy
+    \end{align*}
+    % \annotate[yshift=0.5em]{above,right}{v1}{$B^{x_j} \subseteq E_{\lambda}$}
+\end{proof}
+
+
+\begin{theorem}[Vitali引理]\label{Th:Vitali}
+    $\{B_{\alpha}\}_{\alpha\in\Lambda}$为一族$\mathbb{R}^n$中的球，$\exists M>0$，s.t.，$|r(B_{\alpha})| \leqslant M$，$\forall \alpha\in\Lambda$。$E\subset\mathbb{R}^n$，$E\subset \bigcup\limits_{\alpha\in\Lambda} B_{\alpha}$，则存在$\{B_{\alpha}\}_{\alpha\in\lambda}$中的一个\textbf{互不相交}的子球列$\{B_i\}_{i=1}^{\infty}$，有
+    \begin{align*}
+        |E| \leqslant 5^n \sum\limits_{i=1}^{\infty} |B_i|
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    取$B_1$，s.t. 
+    \begin{align*}
+        r(B_1) > \frac{1}{2} \sup \{ r(B_{\alpha}) : \alpha\in \Lambda \}
+    \end{align*}
+    再选取$B_2$，s.t.
+    \begin{align*}
+        r(B_2) > \frac{1}{2} \sup \{r(B_{\alpha}:\ B_{\alpha} \cap B_1 = \varnothing,\ \alpha\in\Lambda \}
+    \end{align*}
+    以此类推，可以选取$B_k$，s.t.
+    \begin{align*}
+        r(B_k) > \frac{1}{2} \sup\left\lbrace r(B_k): \ B_{\alpha}\cap\left(\bigcup\limits_{j=1}^{k-1} B_j\right) = \varnothing,\ \alpha\in\Lambda\right\rbrace
+    \end{align*}
+
+    情形分为两种，
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+    \item 第一种：若选到某一步$B_m$，中止。则$\forall B_{\alpha}$，有$B_{\alpha}$与某个$B_j(1\leqslant j\leqslant m)$相交。则
+    \begin{align*}
+        E &\subset \bigcup\limits_{j=1}^m (5B_j) \Rightarrow  \\
+        |E| &\leqslant \sum\limits_{j=1}^m |5B_j| = 5^n \sum\limits_{j=1}^m |B_j|
+    \end{align*}
+    且
+    \begin{align*}
+        B_{\alpha} \cap B_{j_0} \neq \varnothing\quad 1\leqslant j_0\leqslant m
+    \end{align*}
+    则
+    \begin{align*}
+        r(B_{j_0}) \geqslant \frac{1}{2} r(B_{\alpha}) 
+    \end{align*}
+
+    \item 情形二：一直选下去，$B_1,\cdots,B_k,\cdots$
+    \begin{enumerate}[leftmargin=1cm, label=(\arabic*.)]
+        \item[(2a)] 若
+        \begin{align*}
+            \sum\limits_{j=1}^{\infty} |B_j| = +\infty
+        \end{align*}
+        显然。
+
+        \item[(2b)] 若
+        \begin{align*}
+            \sum\limits_{j=1}^{\infty} |B_j| < +\infty
+        \end{align*}
+        则
+        \begin{align*}
+            E_{\alpha} \subset \bigcup\limits_{j=1}^{\infty} 5B_j
+        \end{align*}
+        $\forall x_0\in E_{\alpha}$，则$\exists B_{\alpha_0}$，s.t.
+        \begin{align*}
+            x_0 \in B_{\alpha_0}
+        \end{align*}
+        而$B_{\alpha_0}$一定与$\{B_k\}_{k=1}^{\infty}$中某球相交，我们只需要找到第一个球然后就可以控制该球。
+        
+    \end{enumerate}
+    \end{enumerate}
+\end{proof}
+
+
+\begin{theorem}[Besicovitch引理]
+    $E\subseteq \bigcup\limits_{\alpha\in\Lambda} Q_{\alpha}$，则存在一个子列$\{Q_j\}$，s.t.
+    \begin{enumerate}[leftmargin=1cm, label=(\arabic*)]
+        \item 
+        \begin{align*}
+            E\subseteq \bigcup\limits_{j=1}^{\infty} Q_j
+        \end{align*}
+        \item 
+        \begin{align*}
+            \sum\limits_{j=1}^{\infty} \chi_{Q_j}(x) \leqslant c(n)
+        \end{align*}
+    \end{enumerate}
+\end{theorem}
+
+\begin{Corollary}
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*.]
+        \item $\mathcal{M}_{\texttt{Rectangle}}$是强$(p,p)$的$(p>1)$，但不是弱$(1,1)$。
+        \item 维数无关的常数
+    \end{enumerate}
+\end{Corollary}
+
+\begin{theorem}
+    \begin{align*}
+        \|\mathcal{M}f\|_p \leqslant \eqnmarkbox[red]{v2}{c(p,n)} \|f\|_p
+    \end{align*}
+    \annotate[yshift=0.5em]{above,left}{v2}{改进为$c(p)$}
+    $\forall 1<p<+\infty$，即为强$(p,p)$的。           
+
+\end{theorem}
+\begin{proof}
+    由Marcinkiewikz内插可得。
+\end{proof}
+
+
+
+\begin{theorem}[Lesbegue微分定理]
+    $f\in L^1(\mathbb{R}^n)$，则
+    \begin{align*}
+        \lim\limits_{r\to 0} \bbint_{B(x,r)} f(y) dy = f(x),\quad\  a.e.\ x\in\mathbb{R}^n
+    \end{align*}
+
+
+\end{theorem}
+\begin{remark}
+    $n=1$时，定理变为
+    \begin{align*}
+        \lim\limits_{r\to  0} \frac{1}{2r}\int_{x-r}^{x+r} f(y) dy = f(x) \Longleftrightarrow\ \left(\int_0^x f(y) dy\right)^{\prime} = f(x), \ a.e.
+    \end{align*}
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*${}^{\circ}$]
+        \item 当$f\in C_0(\mathbb{R}^n)$时，有
+        \begin{align*}
+            \lim\limits_{r\to 0} \bbint_{B(x,r)} f(y) dy = f(x),\quad \forall x\in\mathbb{R}^n
+        \end{align*}
+
+        \item 
+        \begin{align*}
+            \sup\limits_{r>0} \left| \bbint_{B(x,r)} f(y) dy\right| \leqslant \widetilde{\mathcal{M}} (f)(x)
+        \end{align*}
+        而$\widetilde{\mathcal{M}}(f)(x)$是弱$(1,1)$的;
+
+        \item 由之前闭集的定理即得。
+    \end{enumerate}
+\end{proof}
+\begin{remark}[应用1]
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*${}^{\circ}$]
+        \item $f\in L^1$可减弱为$f\in L^1_{\texttt{Loc}}$。而研究$f\circ \chi_{B(x_0,N)}\in L^1$即可；
+        \item 结果可加强，
+        \begin{align*}
+            \lim\limits_{r\to 0} \bbint_{B(x,r)} |f(y) - f(x)| dy = 0
+        \end{align*}
+        仿照先前的证明方法即可。使上式成立的点称为$f$的\textbf{Lesbegue点}；
+        \item 
+        \begin{align*}
+            \lim\limits_{j\to \infty} \bbint_{B_j} |f(y) - f(x)| dy = 0,\quad a.e.\ x
+        \end{align*}
+        即
+        \begin{align*}
+            B_1 \supseteq B_2 \supseteq \cdots, \quad \bigcap\limits_{j=1}^{\infty} B_j = \{x\} \quad \lim\limits_{j\to\infty} r(B_j) = 0
+        \end{align*}
+    \end{enumerate}
+\end{remark}
+
+
+% 22 Oct
+\begin{Corollary}
+    $f\in L^1_{\texttt{Loc}}$，则
+    \begin{align*}
+        |f(x)| \leqslant \mathcal{M} f(x),\quad a.e.\ x\in\mathbb{R}^n
+    \end{align*}
+\end{Corollary}
+\begin{proof}
+    \begin{align*}
+        |f(x)| = \lim\limits_{r\to 0} \left| \bbint_{B(x,r)} f(y) dy\right| \leqslant \sup\limits_{r>0} \bbint_{B(x,r)} |f(y)| dy \triangleq \mathcal{M} f(x) \quad a.e.\ x\in\mathbb{R}^n
+    \end{align*}
+\end{proof}
+
+\subsection*{应用2：恒等逼近的a.e.收敛问题}
+\begin{remark}
+    $\phi\in L^1(\mathbb{R}^n)$，$\int_{\mathbb{R}^n} \phi(x) dx = 1$，$\forall t > 0$，定义
+    \begin{align*}
+        \phi_t(x) \triangleq \frac{1}{t^n} \phi\left(\frac{x}{t}\right)
+    \end{align*}
+    而显然我们有
+    \begin{align*}
+        \phi_t \xrightarrow{\mathcal{S}'} \delta
+    \end{align*}
+    即
+    \begin{align*}
+        \phi_t * f(x) \to f(x) \quad \text{when}\ t\to 0
+    \end{align*}
+
+    而当$f\in L^p(\mathbb{R}^n)$，其中$1\leqslant p <\infty$，则上述依然成立，即
+    \begin{align*}
+        \phi_t * f \xrightarrow{L^p} f,\quad \text{when}\ t\to 0
+    \end{align*}
+\end{remark}
+
+\begin{lemma}
+    $\phi\in L^1$，$\phi(x)\geqslant 0$，径向（即$\phi(x) = \widetilde{\phi}(|x|)$，其中$\widetilde{\phi}(|x|)$为一元函数），$\widetilde{\phi}(r)$在$\left[0,\infty\right)$上单调递减，则
+    \begin{align*}
+        \sup\limits_{t>0} |\phi_t * f(x)| \leqslant \|\phi\|_1 \cdot \mathcal{M}f(x)
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*${}^{\circ}$]
+        \item 当
+        \begin{align*}
+            \phi(x) = \sum\limits_{i=j}^{m} a_j \chi_{B(0,r_j} (x) \quad r_j\geqslant 0\quad r_1<r_2,<\cdots<r_m
+        \end{align*}
+        则
+        \begin{align*}
+            \phi_t*f(x) &= \left(\sum\limits_{i=j}^{m} a_j \frac{1}{t^n} \chi_{B(0,r_j} \left(\frac{\cdot}{t}\right)\right) * f(x) \\
+            &= \sum\limits_{j=1}^m [a_j\cdot |B(0,r_j)|] \left[ \frac{1}{|B(0,r_j)|} \chi_{B(0,r_j)} * f(x) \right] \\
+            &\leqslant \|\phi\|_1 \cdot \frac{1}{|B(0,r_j)|} \int_{B(0,r_j)} f(x-y) dy \leqslant \|\phi\|_1 \cdot \mathcal{M}f(x)
+        \end{align*}
+
+        \item 当$\phi$为一般情形，
+        \begin{align*}
+            \phi(x) = \lim\limits_{m\to\infty} \phi^{(m)} (x),\quad \forall x\in \mathbb{R}^n 
+        \end{align*}
+        $\phi^{(m)}$为$1^{\circ}$重的函数，且$\phi^{(m)}(x)$关于$m$单调递增，由$1^{\circ}$，
+        \begin{align*}
+            \phi_t * |f|(x) = \left\| \phi^{(m)} * |f(x)| \right\| \leqslant \|\phi^{(m)} \|_1 \mathcal{M} f(x) = \|\phi_t\|_1 \mathcal{M} f(x) = \|\phi\|_1 \mathcal{M} f(x)
+        \end{align*}
+    \end{enumerate}
+
+    而考虑
+    \begin{align*}
+        \| \phi_t * f(x)\| &\leqslant \int_{\mathbb{R}^n} |\phi_t(x-y)| \cdot |f(y)| dy \\
+        &= \sum\limits_{k=-\infty}^{\infty} \frac{1}{t^n} \int \left| \widetilde{\phi}\left(\left|\frac{x-y}{t}\right|\right) \right|\cdot |f(y)| dy \\
+        & \leqslant c_n \sum\limits_{k=-\infty}^{\infty} \frac{(2^k t)^n}{t^n} \widetilde{\phi}(2^{k-1}) \int |f(y)| dy \leqslant c(n) \|\phi\|_1 \mathcal{M}f(x)
+    \end{align*}
+\end{proof}
+
+
+\begin{Corollary}
+    若$\phi$满足$|\phi(x)|\leqslant \psi(x)$，且$\psi(x)$非负，径向，单调递减，可积，则$\sup\limits_{t>0}|\phi_t * f(x)|$是强$(p,p)$，弱$(1,1)$，$1<p\leqslant \infty$。
+\end{Corollary}
+\begin{proof}
+    \begin{align*}
+        \|\phi_t * f\| \leqslant \psi * |f|(x) 
+    \end{align*}
+    即
+    \begin{align*}
+        \sup\limits_{t>0} \|\phi_t * f\| \leqslant \sup\limits_{t>0} \|\psi_t * f\| \leqslant \|\psi\|_1 \mathcal{M} f(x)
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    若$\phi\in L^1(\mathbb{R}^n)$，$\int_{\mathbb{R}^n} \phi(x) dx = 1$，且$|\phi(x)| \leqslant \psi(x)$，$\psi(x)$为径向单调递减函数，且可积，则$\forall f\in L^p$，$1\leqslant p<\infty$，有
+    \begin{align*}
+        \phi_t * f(x) \to f(x) \quad a.e.\ x\in\mathbb{R}^n
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}[leftmargin=1cm, label=\arabic*${}^{\circ}$]
+        \item 当$f\in C_C(\mathbb{R}^n)$，成立；
+        \item $\sup\limits_{t>0} |\phi_t * f(x)|$，是强$(p,p)$，弱$(1,1)$的；
+        \item 由闭集上的证明即得。
+    \end{enumerate}
+\end{proof}
+
+\paragraph{算数平均}
+\begin{align*}
+    \frac{1}{R} \int_0^R S_t f(x) dt &\triangleq \frac{1}{R} \int_0^R \int_{|\xi| < t} \widehat{f}(\xi) e^{2\pi i x \xi} d\xi dt = F_R * f 
+\end{align*}
+其中
+\begin{align*}
+    F_R(x) = \frac{R^2 \sin^2 \pi R x}{R(\pi R x)^2} = R \frac{\sin^2(\pi R x)}{(\pi R x)^2} = (F_1)_{\frac{1}{R}}
+\end{align*}
+而
+\begin{align*}
+    F_1 = \frac{\sin^2(\pi x)}{(\pi x)^2}
+\end{align*}
+
+考虑
+\begin{align*}
+    \frac{\sin^2(\pi x)}{(\pi x)^2} \leqslant \begin{cases}
+        1 & |\pi x| < 1 \\
+        \frac{1}{(\pi x)^2} & |\pi x|\geqslant 1
+    \end{cases} \triangleq \psi(x)
+\end{align*}
+
+\paragraph{Poisson求和} 其中
+\begin{align*}
+    P_t(x) &= c_n \frac{t}{(t^2 + |x|^2)^{\frac{n+1}{2}}} \\
+    & = \frac{c_n}{t^{-n}} \left( 1 + \left(\frac{|x|}{t}\right)^2\right)^{-\frac{n+1}{2}} = (P_1)_t
+\end{align*}
+其中
+\begin{align*}
+    P_1 = c_n \left( 1 + |u|^2\right)^{-\frac{n+1}{2}}
+\end{align*}
+这里的$(\cdot)_t$均为恒等逼近的展缩。
+
+而
+\begin{align*}
+    \frac{1}{|B(0,r)|} \int_{B(0,r)} f(x-y) dy = \int f(x-y) \frac{1}{|B(0,r)|} \chi_{B(0,r)}(y) dy = f * \left[\frac{1}{|B(0,r)|} \chi_{B(0,r)}(y) \right]
+\end{align*}
+\begin{remark}
+    $f\in L^1$，$f\neq 0$，a.e.，则$\mathcal{M} f\notin L^1$。
+\end{remark}
+\begin{proof}
+    \begin{align*}
+        \mathcal{M} f(x) \geqslant \frac{1}{|x|^n} \quad \text{when}\ |x| > > 1
+    \end{align*}
+\end{proof}
+
+
+\begin{theorem}
+    设$E$为$\mathbb{R}^n$的有界集，则
+    \begin{align*}
+        \int\mathcal{M} f(x) dx \leqslant 2|E| + \int_{\mathbb{R}^n} |f(x)| \log^+ |f(x)| dx
+    \end{align*}
+    其中
+    \begin{align*}
+        \log^+ (u) \triangleq \max\{0, \log(u)\}
+    \end{align*}
+    
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \int_E \mathcal{M} f(x) dx &= \int_0^{+\infty} \bigg|\{x\in\mathbb{R}^n : \mathcal{M} f(x) \chi_E(x) > \lambda\}\bigg| d\lambda \\
+        & = 2 \int_0^{\infty} \underbrace{\bigg|\{x\in E: \mathcal{M} f(x) > 2t \} \bigg|}\limits_{\leqslant |E|} dt \\
+        & = 2\left[\int_0^1 + \int_1^{\infty} \right] \\
+        & \leqslant 2|E| + \int_1^{\infty} \bigg|\{x\in E: \mathcal{M} f(x) > 2t\}\bigg| dt
+    \end{align*}
+    注意到
+    \begin{align*}
+        \operatorname{II} = \int_0^1 \bigg|\{ x\in E: \mathcal{M} f(x) > 2t\} \bigg| dt 
+    \end{align*}
+    分解为
+    \begin{align*}
+        f = f_1^t + f_2^t, \quad f_1^t=f(x)\chi_{\{|f|>t\}} (x),\quad f_2^t = f(x) \chi_{\{|f|<t\}}
+    \end{align*}
+从而
+\begin{align*}
+    \operatorname{II} &\leqslant \int_1^{\infty} \bigg|\{x\in E: \mathcal{M} f_1^t > t\} \bigg| dt + \underbrace{\int_1^{\infty} \bigg|\{x\in E: \mathcal{M} f_2^t > t\} \bigg| dt}\limits_{= \varnothing} \\
+    & \overset{weak\ (1,1)}{\leqslant } \int_0^{\infty} \frac{c(n) \|f_1^t\|_1}{t} dt  
+\end{align*}
+而
+\begin{align*}
+    \int_1^{\infty} \frac{1}{t} \|f_1^t\|_1 dt & = \int_1^{\infty} \frac{1}{t} \int_{\{|f(x)| > t\}} f(x) dx dt \\
+    & \overset{\texttt{Tonelli}}{=} \int_{\{|f(x)| > 1\}} |f(x)| \int_1^{|f(x)|} \frac{1}{t} dt dx \\
+    & = \int_{|f(x)| > 1} |f(x)| \log |f(x)| dx \\
+    & = \int_{\mathbb{R}^n} |f(x)| \log^+ |f(x)| dx
+\end{align*}
+\end{proof}
+
+
+\subsection*{标准的二进方体}
+边长为1的方体，记作$\mathfrak{D}_0$；而后一分为四得到边长为$\frac{1}{2}$的方体，记作$\mathfrak{D}_1$；不断分得到边长为$2^{-k}$的方体记作$\mathfrak{D}_k$。用$\mathfrak{D}$表示二进方体组成的集合，即
+\begin{align*}
+    \mathfrak{D} = \bigcup\limits_{k\in\mathbb{Z}} \mathfrak{D}_k
+\end{align*}
+
+\begin{proposition}
+    若$Q_j\cap Q_k\neq \varnothing$，且$Q_j,Q_k\in\mathfrak{D}$，则$Q_j\subset Q_k$或$Q_k\subset Q_j$。
+\end{proposition}
+
+
+
+
+

@@ -1,0 +1,37 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Fourier级数和Fourier积分}{1}{chapter.1}%
+\contentsline {paragraph}{什么是调和分析？}{1}{section*.2}%
+\contentsline {section}{\numberline {1.1}Fourier级数}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Fourier级数的点态收敛}{2}{section.1.2}%
+\contentsline {paragraph}{$D_N(t)$的性质}{4}{section*.3}%
+\contentsline {section}{\numberline {1.3}连续函数的Fourier级数}{9}{section.1.3}%
+\contentsline {paragraph}{1}{9}{section*.5}%
+\contentsline {paragraph}{2}{10}{section*.6}%
+\contentsline {section}{\numberline {1.4}Fourier级数按$L^p$收敛}{12}{section.1.4}%
+\contentsline {section}{\numberline {1.5}两种Fourier级数的求和法}{14}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}算数求和}{14}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Fejer核的性质}{14}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Abel求和}{16}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Possion核的性质}{16}{subsection.1.5.4}%
+\contentsline {section}{\numberline {1.6}$L^1$函数的Fourier变换}{18}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Fourier级数与Fourier变换的对比}{20}{subsection.1.6.1}%
+\contentsline {paragraph}{Question}{20}{section*.7}%
+\contentsline {section}{\numberline {1.7}Schwarz类与缓增分布}{21}{section.1.7}%
+\contentsline {section}{\numberline {1.8}$L^p$函数的Fourier变换，$1\leqslant p\leqslant +\infty $}{26}{section.1.8}%
+\contentsline {paragraph}{已知}{27}{section*.8}%
+\contentsline {section}{\numberline {1.9}Fourier积分与求和}{32}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}求和法}{33}{subsection.1.9.1}%
+\contentsline {subsubsection}{算术平均求和法}{33}{section*.9}%
+\contentsline {subsubsection}{Abel求和}{34}{section*.10}%
+\contentsline {paragraph}{Poisson积分}{34}{section*.11}%
+\contentsline {paragraph}{Gauss积分}{34}{section*.12}%
+\contentsline {paragraph}{恒等逼近}{35}{section*.13}%
+\contentsline {chapter}{\numberline {2}Hardy-Littlewood极大算子}{37}{chapter.2}%
+\contentsline {section}{\numberline {2.1}恒等逼近}{37}{section.2.1}%
+\contentsline {paragraph}{Question}{38}{section*.14}%
+\contentsline {section}{\numberline {2.2}点态收敛与极大算子的有界性}{38}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Marcinkiewicz内插定理}{42}{section.2.3}%
+\contentsline {paragraph}{Question}{45}{section*.15}%
+\contentsline {section}{\numberline {2.4}Hardy-Littlewood极大算子 $\mathcal {M}(f)$}{47}{section.2.4}%
+\contentsline {paragraph}{算数平均}{55}{section*.17}%
+\contentsline {paragraph}{Poisson求和}{56}{section*.18}%
